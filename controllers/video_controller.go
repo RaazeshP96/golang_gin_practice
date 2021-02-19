@@ -1,4 +1,4 @@
-package controllers
+package controller
 
 import (
 	"github.com/RaazeshP96/golang_gin_practice/models"
@@ -7,8 +7,8 @@ import (
 )
 
 type VideoController interface {
-	Findall() []models.Video
-	Save(ctx *gin.Context)
+	FindAll() []models.Video
+	Save(ctx *gin.Context) models.Video
 }
 
 type controller struct {
@@ -16,17 +16,18 @@ type controller struct {
 }
 
 func New(service service.VideoService) VideoController {
-	return controller{
+	return &controller{
 		service: service,
 	}
 }
-func (c *controller) Save(ctx *gin.Context) {
+
+func (c *controller) FindAll() []models.Video {
+	return c.service.FindAll()
+}
+
+func (c *controller) Save(ctx *gin.Context) models.Video {
 	var video models.Video
 	ctx.BindJSON(&video)
 	c.service.Save(video)
 	return video
-}
-func (c *controller) FindAll() models.Video {
-
-	return c.service.FindAll()
 }
