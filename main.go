@@ -5,6 +5,7 @@ import (
 
 	controller "github.com/RaazeshP96/golang_gin_practice/controllers"
 	"github.com/RaazeshP96/golang_gin_practice/service"
+	"github.com/docker/docker/api/server"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
@@ -16,7 +17,8 @@ var (
 
 func main() {
 	godotenv.Load(".env")
-	route := gin.Default()
+	route := gin.New()
+	server.Use(gin.Recovery(), gin.Logger())
 	route.GET("/videos", func(c *gin.Context) {
 		c.JSON(200,
 			VideoController.FindAll())
