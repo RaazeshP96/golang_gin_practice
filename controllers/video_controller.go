@@ -27,7 +27,7 @@ func (c *controller) FindAll() []models.Video {
 
 func (c *controller) Save(ctx *gin.Context) models.Video {
 	var video models.Video
-	ctx.BindJSON(&video)
+	ctx.ShouldBindJSON(&video)
 	c.service.Save(video)
 	return video
 }
