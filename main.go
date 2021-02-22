@@ -9,6 +9,7 @@ import (
 	"github.com/RaazeshP96/golang_gin_practice/service"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	gindump "github.com/tpkeeper/gin-dump"
 )
 
 var (
@@ -25,7 +26,7 @@ func main() {
 	godotenv.Load(".env")
 	setupLogOutput()
 	route := gin.New()
-	route.Use(gin.Recovery(), middlewares.Logger(), middlewares.BasicAuth())
+	route.Use(gin.Recovery(), middlewares.Logger(), middlewares.BasicAuth(), gindump.Dump())
 	route.GET("/videos", func(c *gin.Context) {
 		c.JSON(200,
 			VideoController.FindAll())

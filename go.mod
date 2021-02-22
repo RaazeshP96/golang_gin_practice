@@ -23,6 +23,7 @@ require (
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.0.1 // indirect
 	github.com/sirupsen/logrus v1.8.0 // indirect
+	github.com/tpkeeper/gin-dump v1.0.0 // indirect
 	github.com/ugorji/go v1.2.4 // indirect
 	golang.org/x/crypto v0.0.0-20210218145215-b8e89b74b9df // indirect
 	golang.org/x/sys v0.0.0-20210218155724-8ebf48af031b // indirect
