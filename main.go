@@ -25,7 +25,7 @@ func main() {
 	godotenv.Load(".env")
 	setupLogOutput()
 	route := gin.New()
-	route.Use(gin.Recovery(), middlewares.Logger())
+	route.Use(gin.Recovery(), middlewares.Logger(), middlewares.BasicAuth())
 	route.GET("/videos", func(c *gin.Context) {
 		c.JSON(200,
 			VideoController.FindAll())
