@@ -1,9 +1,13 @@
 package middlewares
 
-import "github.com/gin-gonic/gin"
+import (
+	"os"
+
+	"github.com/gin-gonic/gin"
+)
 
 func BasicAuth() gin.HandlerFunc {
 	return gin.BasicAuth(gin.Accounts{
-		"rajesh": "password",
+		os.Getenv("USER"): os.Getenv("Password"),
 	})
 }
