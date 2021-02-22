@@ -1,12 +1,15 @@
 package main
 
 import (
+	"io"
 	"os"
 
 	controller "github.com/RaazeshP96/golang_gin_practice/controllers"
+	"github.com/RaazeshP96/golang_gin_practice/middlewares"
 	"github.com/RaazeshP96/golang_gin_practice/service"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	gindump "github.com/tpkeeper/gin-dump"
 )
 
 var (
@@ -14,9 +17,16 @@ var (
 	VideoController controller.VideoController = controller.New(videoService)
 )
 
+func setupLogOutput() {
+	f, _ := os.Create("gin.log")
+	gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
+}
+
 func main() {
 	godotenv.Load(".env")
-	route := gin.Default()
+	setupLogOutput()
+	route := gin.New()
+	route.Use(gin.Recovery(), middlewares.Logger(), middlewares.BasicAuth(), gindump.Dump())
 	route.GET("/videos", func(c *gin.Context) {
 		c.JSON(200,
 			VideoController.FindAll())
