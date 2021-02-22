@@ -2,6 +2,7 @@ package main
 
 import (
 	"io"
+	"net/http"
 	"os"
 
 	controller "github.com/RaazeshP96/golang_gin_practice/controllers"
@@ -14,7 +15,7 @@ import (
 
 var (
 	videoService    service.VideoService       = service.New()
-	VideoController controller.VideoController = controller.New(videoService)
+	videoController controller.VideoController = controller.New(videoService)
 )
 
 func setupLogOutput() {
@@ -29,11 +30,20 @@ func main() {
 	route.Use(gin.Recovery(), middlewares.Logger(), middlewares.BasicAuth(), gindump.Dump())
 	route.GET("/videos", func(c *gin.Context) {
 		c.JSON(200,
-			VideoController.FindAll())
+			videoController.FindAll())
 	})
-	route.POST("/videos", func(c *gin.Context) {
-		c.JSON(200,
-			VideoController.Save(c))
+	route.POST("/videos", func(ctx *gin.Context) {
+		err := videoController.Save(ctx)
+		if err != nil {
+			ctx.JSON(http.StatusBadRequest,
+				gin.H{"error": err.Error()})
+
+		} else {
+			ctx.JSON(http.StatusOK,
+				gin.H{"message": "Video Input is Valid!!"})
+
+		}
+
 	})
 	route.Run(":" + os.Getenv("PORT"))
 }

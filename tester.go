@@ -1,44 +1,44 @@
-package main
+// package main
 
-import (
-	"fmt"
-	"io/ioutil"
-	"net/http"
-	"strings"
-)
+// import (
+// 	"fmt"
+// 	"io/ioutil"
+// 	"net/http"
+// 	"strings"
+// )
 
-func main() {
+// func main() {
 
-	url := "http://localhost:8080/videos"
-	method := "GET"
+// 	url := "http://localhost:8080/videos"
+// 	method := "GET"
 
-	payload := strings.NewReader(`{
-    
-    "title":"book three",
-    "author":{"firstname":"lional","lastname":"messi"}
-}`)
+// 	payload := strings.NewReader(`{
 
-	client := &http.Client{}
-	req, err := http.NewRequest(method, url, payload)
+//     "title":"book three",
+//     "author":{"firstname":"lional","lastname":"messi"}
+// }`)
 
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("Authorization", "Basic cmFqZXNoOnBhc3N3b3Jk")
+// 	client := &http.Client{}
+// 	req, err := http.NewRequest(method, url, payload)
 
-	res, err := client.Do(req)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	defer res.Body.Close()
+// 	if err != nil {
+// 		fmt.Println(err)
+// 		return
+// 	}
+// 	req.Header.Add("Content-Type", "application/json")
+// 	req.Header.Add("Authorization", "Basic cmFqZXNoOnBhc3N3b3Jk")
 
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	fmt.Println(string(body))
-}
+// 	res, err := client.Do(req)
+// 	if err != nil {
+// 		fmt.Println(err)
+// 		return
+// 	}
+// 	defer res.Body.Close()
+
+// 	body, err := ioutil.ReadAll(res.Body)
+// 	if err != nil {
+// 		fmt.Println(err)
+// 		return
+// 	}
+// 	fmt.Println(string(body))
+// }
