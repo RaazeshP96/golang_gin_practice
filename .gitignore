@@ -15,3 +15,4 @@
 # vendor/
 .env
 *.log
+.fuse_hidden000001a800000004
